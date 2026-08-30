@@ -2109,6 +2109,8 @@
 
       }
     </style>
+    <link rel="stylesheet" href="./assets/sft-project.css" />
+    <script src="./assets/sft-project.js" defer></script>
   </head>
 
   <body>
@@ -2313,7 +2315,7 @@
                 用真实项目，<br />说明我如何让AI落地。
               </h2>
               <p class="section-description">
-                这里展示我如何从业务问题出发，完成AI方案判断、产品设计与原型验证。第一项是企业知识库问答。
+                这里展示我如何从业务问题出发，完成AI方案判断、产品设计与原型验证，包括企业知识库问答与风格化数字人SFT微调。
               </p>
             </div>
           </header>
@@ -2375,44 +2377,276 @@
             </article>
 
             <article class="project-card liquid-glass" data-reveal>
-              <div
-                class="project-media"
-                role="img"
-                aria-label="AI项目二界面图或演示视频占位，建议尺寸1600乘1000像素"
-              >
-                <span class="project-media-index" aria-hidden="true">02</span>
-                <span class="project-media-placeholder">
-                  这里放项目界面图或演示视频<br />建议尺寸：1600 × 1000 px
-                </span>
+              <div class="project-media project-media--sft">
+                <div
+                  class="sft-workbench sft-workbench--preview"
+                  id="sft-workbench-source"
+                  inert
+                  aria-hidden="true"
+                >
+                  <aside class="sft-sidebar">
+                    <div class="sft-brand">
+                      <span class="sft-brand-mark">ST</span>
+                      <span class="sft-brand-copy">
+                        <strong>StyleTune</strong>
+                        <small>Digital Human Lab</small>
+                      </span>
+                    </div>
+                    <div class="sft-nav" aria-label="微调工作台功能区">
+                      <span class="sft-nav-item is-active">训练概览</span>
+                      <span class="sft-nav-item">数据资产</span>
+                      <span class="sft-nav-item">训练任务</span>
+                      <span class="sft-nav-item">评测中心</span>
+                      <span class="sft-nav-item">模型版本</span>
+                    </div>
+                    <span class="sft-sidebar-foot">SFT Workspace</span>
+                  </aside>
+
+                  <section class="sft-main">
+                    <div class="sft-topbar">
+                      <span>界面演示数据 <strong>SFT_RUN_024</strong></span>
+                      <span class="sft-run-status"><i></i>训练中</span>
+                    </div>
+
+                    <div class="sft-heading">
+                      <div class="sft-heading-copy">
+                        <span class="sft-eyebrow">STYLE PERSONA PIPELINE</span>
+                        <h4>风格化数字人 · SFT 微调工作台</h4>
+                        <p>统一管理角色数据、训练任务与效果评测</p>
+                      </div>
+                      <div class="sft-model-pill">
+                        <span>当前版本</span>
+                        <strong>StyleHuman v2</strong>
+                      </div>
+                    </div>
+
+                    <div class="sft-stats">
+                      <div class="sft-stat">
+                        <span class="sft-stat-label">数据资产</span>
+                        <strong>已完成治理</strong>
+                        <span class="sft-stat-meta">格式 · 去重 · 风格标签</span>
+                      </div>
+                      <div class="sft-stat">
+                        <span class="sft-stat-label">风格协议</span>
+                        <strong>人设 · 语气 · 边界</strong>
+                        <span class="sft-stat-meta">统一约束与样例</span>
+                      </div>
+                      <div class="sft-stat">
+                        <span class="sft-stat-label">模型版本</span>
+                        <strong>候选版本 v2</strong>
+                        <span class="sft-stat-meta">等待人工复核</span>
+                      </div>
+                    </div>
+
+                    <div class="sft-tabs" role="tablist" aria-label="工作台视图">
+                      <button
+                        class="sft-tab"
+                        type="button"
+                        role="tab"
+                        aria-selected="true"
+                        data-sft-view="training"
+                      >训练曲线</button>
+                      <button
+                        class="sft-tab"
+                        type="button"
+                        role="tab"
+                        aria-selected="false"
+                        tabindex="-1"
+                        data-sft-view="dataset"
+                      >样本质检</button>
+                      <button
+                        class="sft-tab"
+                        type="button"
+                        role="tab"
+                        aria-selected="false"
+                        tabindex="-1"
+                        data-sft-view="compare"
+                      >效果对比</button>
+                    </div>
+
+                    <div class="sft-panels">
+                      <section
+                        class="sft-panel sft-panel--training"
+                        role="tabpanel"
+                        data-sft-panel="training"
+                      >
+                        <article class="sft-card sft-chart-card">
+                          <header class="sft-card-head">
+                            <div>
+                              <span class="sft-card-title">训练损失趋势</span>
+                              <div class="sft-card-subtitle">LoRA SFT · 界面演示</div>
+                            </div>
+                            <div class="sft-progress-copy">
+                              <strong>72%</strong>
+                              <span>任务进度</span>
+                            </div>
+                          </header>
+                          <svg class="sft-chart" viewBox="0 0 520 180" preserveAspectRatio="none" aria-hidden="true">
+                            <defs>
+                              <linearGradient id="sftChartFill" x1="0" y1="0" x2="0" y2="1">
+                                <stop offset="0" stop-color="#8e7cff" stop-opacity="0.26" />
+                                <stop offset="1" stop-color="#8e7cff" stop-opacity="0" />
+                              </linearGradient>
+                            </defs>
+                            <path class="sft-chart-grid" d="M0 35H520 M0 75H520 M0 115H520 M0 155H520" />
+                            <path fill="url(#sftChartFill)" d="M0 34 C48 48 62 59 102 69 S164 92 206 101 S271 119 316 126 S397 143 520 153 L520 180 L0 180 Z" />
+                            <path class="sft-chart-primary" d="M0 34 C48 48 62 59 102 69 S164 92 206 101 S271 119 316 126 S397 143 520 153" />
+                            <path class="sft-chart-secondary" d="M0 54 C56 62 75 70 122 81 S193 94 232 108 S310 126 352 133 S430 145 520 150" />
+                          </svg>
+                          <div class="sft-chart-legend">
+                            <span><i></i>Training Loss</span>
+                            <span><i></i>Validation Loss</span>
+                          </div>
+                        </article>
+
+                        <aside class="sft-card sft-persona-card">
+                          <div class="sft-avatar-ring">
+                            <div class="sft-avatar-core">AVA</div>
+                          </div>
+                          <span class="sft-persona-label">目标角色</span>
+                          <h5>温和 · 克制 · 可信</h5>
+                          <p>保持自然表达，同时遵循知识与安全边界。</p>
+                          <div class="sft-waveform" aria-hidden="true">
+                            <i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+                          </div>
+                          <div class="sft-eval-mini">
+                            <div><span>角色一致性</span><strong>待复核</strong></div>
+                            <div><span>表达自然度</span><strong>已生成</strong></div>
+                            <div><span>安全边界</span><strong>已校验</strong></div>
+                          </div>
+                        </aside>
+                      </section>
+
+                      <section
+                        class="sft-panel sft-panel--dataset"
+                        role="tabpanel"
+                        data-sft-panel="dataset"
+                        hidden
+                      >
+                        <article class="sft-card sft-pipeline-card">
+                          <span class="sft-card-title">数据处理流水线</span>
+                          <div class="sft-card-subtitle">从原始人设语料到可训练样本</div>
+                          <div class="sft-pipeline-list">
+                            <div class="sft-pipeline-step"><b>1</b><span>格式与字段校验</span><span>已完成</span></div>
+                            <div class="sft-pipeline-step"><b>2</b><span>重复与冲突样本标记</span><span>已完成</span></div>
+                            <div class="sft-pipeline-step"><b>3</b><span>角色风格标签审核</span><span>复核中</span></div>
+                            <div class="sft-pipeline-step"><b>4</b><span>训练集版本冻结</span><span>待执行</span></div>
+                          </div>
+                        </article>
+
+                        <article class="sft-card sft-dataset-card">
+                          <span class="sft-card-title">样本质检</span>
+                          <div class="sft-card-subtitle">人设对话 · 口吻规范 · 场景指令</div>
+                          <div class="sft-dataset-table">
+                            <div class="sft-dataset-row">
+                              <span>日常陪伴<small>温暖、克制</small></span>
+                              <span class="sft-quality-tag">已通过</span>
+                            </div>
+                            <div class="sft-dataset-row">
+                              <span>产品讲解<small>准确、清晰</small></span>
+                              <span class="sft-quality-tag">已通过</span>
+                            </div>
+                            <div class="sft-dataset-row">
+                              <span>边界拒答<small>坚定、不说教</small></span>
+                              <span class="sft-quality-tag">待复核</span>
+                            </div>
+                          </div>
+                        </article>
+                      </section>
+
+                      <section
+                        class="sft-panel sft-panel--compare"
+                        role="tabpanel"
+                        data-sft-panel="compare"
+                        hidden
+                      >
+                        <article class="sft-card sft-compare-card">
+                          <div class="sft-compare-head">
+                            <div>
+                              <span class="sft-card-title">同一提示词 · 版本对比</span>
+                              <div class="sft-card-subtitle">界面演示回答，不代表真实线上输出</div>
+                            </div>
+                          </div>
+                          <div class="sft-compare-flow">
+                            <div class="sft-bubble is-user">
+                              <strong>用户</strong>
+                              今天加班到很晚，感觉什么都做不完。
+                            </div>
+                            <div class="sft-bubble">
+                              <strong>SFT 候选版本</strong>
+                              先把肩膀放松一点。今晚不用把所有事都做完，留一点力气给明天。
+                            </div>
+                          </div>
+                        </article>
+
+                        <article class="sft-card sft-score-card">
+                          <span class="sft-card-title">评测维度</span>
+                          <div class="sft-card-subtitle">自动评测后进入人工复核</div>
+                          <div class="sft-score-list">
+                            <div class="sft-eval-row"><span>人设一致性</span><span class="sft-score-bar"><i style="--score: 91%"></i></span><strong>待复核</strong></div>
+                            <div class="sft-eval-row"><span>语气风格</span><span class="sft-score-bar"><i style="--score: 86%"></i></span><strong>待复核</strong></div>
+                            <div class="sft-eval-row"><span>指令遵循</span><span class="sft-score-bar"><i style="--score: 94%"></i></span><strong>已生成</strong></div>
+                            <div class="sft-eval-row"><span>安全边界</span><span class="sft-score-bar"><i style="--score: 96%"></i></span><strong>已校验</strong></div>
+                          </div>
+                        </article>
+                      </section>
+                    </div>
+                  </section>
+                </div>
+
+                <button
+                  class="sft-preview-launch"
+                  type="button"
+                  data-sft-open
+                  aria-haspopup="dialog"
+                  aria-controls="sft-workbench-dialog"
+                  aria-label="查看风格化数字人 SFT 模型微调工作台完整界面"
+                >
+                  <span class="project-media-index" aria-hidden="true">02</span>
+                  <span class="project-media-hint">
+                    打开完整工作台 <span aria-hidden="true">↗</span>
+                  </span>
+                </button>
               </div>
               <div class="project-content">
-                <span class="project-kicker">AI Product · Project 02</span>
-                <h3 class="project-title">第二个AI项目待补充</h3>
+                <span class="project-kicker">Generative AI · Digital Human SFT</span>
+                <h3 class="project-title">风格化数字人 SFT 模型微调平台</h3>
                 <p class="project-summary">
-                  用一句话交代项目背景、主要用户和最终交付的产品形态。
+                  面向风格化数字人训练团队的模型微调工作台，把数据准备、SFT配置、训练监控、效果对比与版本管理串成一条可复现流程。
                 </p>
+                <div class="project-tags" aria-label="项目关键词">
+                  <span class="project-tag">数据集治理</span>
+                  <span class="project-tag">SFT训练配置</span>
+                  <span class="project-tag">模型评测对比</span>
+                </div>
                 <dl class="project-facts">
                   <div class="project-fact">
                     <dt>业务问题</dt>
-                    <dd>待补充：真正需要解决的用户问题。</dd>
+                    <dd>数字人人设语料、训练参数和评测样例散落在脚本与表格中，版本难追踪，实验也难复现。</dd>
                   </div>
                   <div class="project-fact">
                     <dt>我的角色</dt>
-                    <dd>待补充：负责的阶段与协作对象。</dd>
+                    <dd>负责训练流程产品化、工作台信息架构、关键状态与评测交互，并完成前端原型验证。</dd>
                   </div>
                   <div class="project-fact">
                     <dt>核心判断</dt>
-                    <dd>待补充：模型选择和产品边界。</dd>
+                    <dd>微调平台的核心不是展示更多参数，而是让数据、配置、评测和模型版本形成可追溯闭环。</dd>
                   </div>
                   <div class="project-fact">
                     <dt>项目结果</dt>
-                    <dd>待补充：验证方法和真实反馈。</dd>
+                    <dd>完成覆盖数据准备、任务配置、训练监控、对比评测与版本管理的一体化工作台原型。</dd>
                   </div>
                 </dl>
-                <div class="project-status">
-                  <span>完整项目过程 · 待补充</span>
+                <button
+                  class="project-status project-status-button"
+                  type="button"
+                  data-sft-open
+                  aria-haspopup="dialog"
+                  aria-controls="sft-workbench-dialog"
+                >
+                  <span>查看训练工作台</span>
                   <span aria-hidden="true">↗</span>
-                </div>
+                </button>
               </div>
             </article>
 
@@ -2862,6 +3096,23 @@
           </p>
         </div>
       </article>
+    </dialog>
+
+    <dialog
+      class="sft-dialog"
+      id="sft-workbench-dialog"
+      aria-labelledby="sft-workbench-dialog-title"
+    >
+      <div class="sft-dialog-shell">
+        <header class="sft-dialog-header">
+          <div>
+            <span>PROJECT 02 · INTERACTIVE PROTOTYPE</span>
+            <h2 id="sft-workbench-dialog-title">风格化数字人 SFT 微调工作台</h2>
+          </div>
+          <button class="sft-dialog-close" type="button" aria-label="关闭训练工作台">×</button>
+        </header>
+        <div class="sft-dialog-canvas"></div>
+      </div>
     </dialog>
 
     <dialog
