@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'self'; frame-src 'self'; object-src 'none'; base-uri 'none'; form-action 'self'">
+  <meta name="description" content="使用自己的 DeepSeek API Key，从一个想法逐步梳理产品需求，导出 PRD、规则集和构建交接文档。">
+  <meta name="referrer" content="no-referrer"><meta name="color-scheme" content="light dark">
+  <title>AI 产品需求工作台 · 王元帅</title>
+  <link rel="stylesheet" href="/tools/ai-prd/workbench.css">
+  <script type="module" src="/tools/ai-prd/app.js"></script>
+</head>
+<body>
+  <header class="topbar"><a class="brand" href="/#projects"><span class="brand-mark" aria-hidden="true">P</span><span>AI 产品需求工作台<small>王元帅 / PROJECT 03</small></span></a><div class="top-actions"><span id="connection-status" class="badge">尚未连接</span><button id="disconnect" hidden>断开连接</button><a href="/#projects">返回作品集 ↗</a></div></header>
+  <main>
+    <section id="connection" class="connection-layout">
+      <div class="intro"><p class="eyebrow">PM SUITE V3.0</p><h1>把一个想法，<br>梳理成能落地的需求。</h1><p>从说清问题开始，让 AI 陪你逐步确认，最终带走可编辑的产品文档。</p><div class="journey">说清想法 <span>→</span> 逐步确认 <span>→</span> 导出文档</div><p class="subtle">公开使用，无需注册本站账号。</p></div>
+      <form id="connect-form" class="connect-panel">
+        <h2>连接你的 DeepSeek</h2><p>每次进入或刷新页面都需重新填写。本次使用期间切换阶段不必重复填写。</p>
+        <label for="api-key">API Key</label><div class="key-row"><input id="api-key" type="password" placeholder="sk-…" autocomplete="off" autocapitalize="off" spellcheck="false" required maxlength="203" aria-describedby="key-privacy"><button id="show-key" type="button" aria-pressed="false">显示</button></div>
+        <label for="model">模型</label><select id="model"><option value="deepseek-v4-flash">DeepSeek V4 Flash · 默认</option><option value="deepseek-v4-pro">DeepSeek V4 Pro</option></select>
+        <p id="key-privacy" class="privacy">密钥仅在本页内存和请求处理期间使用，经本站服务器转发至 DeepSeek；不写入本站数据库、浏览器存储、应用日志或导出文件。你的需求与文档也会发送给 DeepSeek，请勿提交敏感资料。</p>
+        <label class="check"><input id="consent" type="checkbox" required><span>我同意上述处理方式，模型费用由我的 DeepSeek 账户承担。</span></label>
+        <button id="connect-button" class="primary" type="submit">连接并开始 →</button><p id="connection-error" class="error" role="alert"></p>
+        <a class="small-link" href="https://platform.deepseek.com/api_keys" target="_blank" rel="noopener noreferrer">到 DeepSeek 官方平台获取密钥 ↗</a>
+      </form>
+    </section>
+    <section id="workspace" hidden>
+      <div class="projectbar"><label class="project-title-label" for="project-title">当前需求<input id="project-title" maxlength="80" placeholder="为需求命名"></label><div class="project-actions"><button id="settings-button" aria-expanded="false" aria-controls="project-settings">路由与项目设置</button><button id="save-project">保存项目文件</button><label class="file-button">导入项目<input id="import-project" type="file" accept=".json,application/json"></label><button id="new-project">新建需求</button></div></div>
+      <section id="project-settings" class="settings" hidden aria-label="项目路由与保存">
+        <label>需求规模<select id="route-size"><option value="S">S · 文案或样式小改</option><option value="M">M · 现有功能逻辑改动</option><option value="L">L · 新功能或新 AI 能力</option></select></label>
+        <label>产品中的 AI 节点<select id="route-ai"><option value="none">无 AI 节点</option><option value="assist">辅助节点</option><option value="core">核心能力</option></select></label>
+        <label>呈现形态<select id="route-surface"><option value="web">Web 页面</option><option value="mobile">移动端</option><option value="backend">纯后台 / 数据流程</option></select></label>
+        <label>判定结论<select id="route-decision"><option value="do">做 · 继续梳理</option><option value="defer">缓做 · 登记触发条件</option><option value="no">不做 · 记录原因</option></select></label>
+        <label class="check"><input id="build-intent" type="checkbox"><span>我明确需要开发交接包</span></label><label class="check"><input id="local-save" type="checkbox"><span>仅在这台设备保存草稿（不含密钥）</span></label><p class="subtle">路由由你确认，可根据 AI 的建议调整。S 级小改通常只需变更许可与 PRD 回写，不必走完七阶段。</p>
+      </section>
+      <div class="workbench">
+        <aside class="stage-rail"><div class="rail-heading">工作阶段</div><nav id="stages" aria-label="七个工作阶段"></nav><p class="rail-note">按需进入，不是七步流水线。<br>AI 验证随节点挂载；构建交接需明确意图。</p><button id="export-all">打包全部文档 ↓</button><p id="save-state" class="subtle">草稿仅在本次页面中。</p></aside>
+        <section class="conversation-panel"><div class="panel-heading"><div><p id="stage-hint" class="eyebrow"></p><h2 id="stage-title"></h2></div><span id="stage-state" class="badge">待梳理</span></div>
+          <div id="messages" class="messages" aria-label="AI 协作对话"></div>
+          <p id="request-status" class="request-status" role="status" aria-live="polite"></p>
+          <form id="message-form"><label class="sr-only" for="message-input">输入需求、补充回答或粘贴资料</label><textarea id="message-input" rows="4" maxlength="8000" placeholder="用自己的话描述需求，或补充 AI 提出的问题…"></textarea><div class="composer-actions"><span class="subtle">Enter 换行 · Ctrl / ⌘ Enter 发送</span><button id="stop" type="button" hidden>停止生成</button><button id="send" class="primary" type="submit">发送 ↑</button></div></form>
+          <div class="stage-actions"><button id="generate-docs">生成 / 更新本阶段文档</button><button id="generate-prototype" hidden>生成交互原型</button><button id="clear-history">精简本阶段对话</button></div>
+          <details class="confirmation"><summary>审核与确认本阶段</summary><label for="evidence">确认人、依据与结论</label><textarea id="evidence" rows="3" maxlength="4000" placeholder="例如：由我核对，依据用户访谈原话…；评审结论…"></textarea><p id="evidence-hint" class="subtle"></p><button id="confirm-stage">记录用户确认</button></details>
+        </section>
+        <aside class="document-panel"><div class="panel-heading"><h2>文档</h2><button id="toggle-edit">编辑 Markdown</button></div><label class="sr-only" for="document-select">选择阶段文档</label><select id="document-select"></select><div id="document-preview" class="document-paper"></div><textarea id="document-editor" class="document-editor" aria-label="编辑文档 Markdown" hidden></textarea><button id="apply-edit" hidden>保存修改并撤回相关确认</button><div class="document-actions"><button id="download-word">Word ↓</button><button id="download-markdown">Markdown ↓</button></div><p class="subtle">草稿也能导出；未确认内容会保留状态标记。</p><section id="prototype-section" hidden><h3>交互原型 · 隔离预览</h3><iframe id="prototype-preview" title="AI 生成的探索原型" sandbox="allow-scripts" referrerpolicy="no-referrer"></iframe><button id="download-prototype">下载离线 HTML ↓</button><p class="subtle">原型内的数据仅用于演示；禁止联网和访问工作台数据。</p></section></aside>
+      </div>
+    </section>
+  </main>
+  <footer>PM 套件 V3.0 · AI 辅助生成，关键判断由你确认。<span>本站不提供模型额度。</span></footer>
+  <div id="notice" class="notice" role="status" aria-live="polite" hidden></div>
+  <noscript>请启用 JavaScript 后使用工作台。</noscript>
+</body></html>
